@@ -1,0 +1,299 @@
+---
+dns_intname: "eth1"
+dns_nameservers:
+  - DNS1=172.16.255.254
+dns_search: avalon.lan
+
+# Add services
+rhbase_firewall_allow_services:
+  - samba
+  - ftp
+  - samba-client
+
+# Create standard groups
+rhbase_user_groups:
+  - management
+  - technical
+  - sales
+  - it
+  - public
+
+# Create standard users
+rhbase_users:
+  - name: stevenh
+    comment: 'Steven Hermans'
+    groups:
+      - management
+      - public
+    password: '$1$Y8Sr3EXF$g.y6lPfmbmCCkKLgD5Nko0'
+    shell: /sbin/nologin
+  - name: stevenv
+    comment: 'Steven Van Daele'
+    groups:
+      - technical
+      - public
+    password: '$1$ZEwAGKzo$FGzLrYBaPmogF8v7a3Qwt0'
+    shell: /sbin/nologin
+  - name: leend
+    comment: 'Leen De Meester'
+    groups:
+      - technical
+      - public
+    password: '$1$X3syz3XK$zjk8oRq7/l9Fc4EvuGbmy0'
+    shell: /sbin/nologin
+  - name: svena
+    comment: 'Sven Aerens'
+    groups:
+      - sales
+      - public
+    password: '$1$7ld2IY7o$xpBkaJr5u/3DPvJ7uYtsA1'
+    shell: /sbin/nologin
+  - name: nehirb
+    comment: 'Nehir Başar'
+    groups:
+      - it
+      - public
+    password: '$1$DLGmwV7v$ZLZcoYO0KVseUNlX2pnxK/'
+  - name: alexanderd
+    comment: 'Alexander De Coninck'
+    groups:
+      - technical
+      - public
+    password: '$1$Y.aXDYgm$b/NUYGTachMV.bM1C7xB.1'
+    shell: /sbin/nologin
+  - name: krisv
+    comment: 'Kris Vanhaverbeke'
+    groups:
+      - management
+      - public
+    password: '$1$onejy5Tc$dQ1X3JCGmHOkYEw7s/aYZ/'
+    shell: /sbin/nologin
+  - name: benoitp
+    comment: 'Benoit Pluquet'
+    groups:
+      - sales
+      - public
+    password: '$1$ESiuPYN1$CA0EdinVNyuGUidKLA.fI.'
+    shell: /sbin/nologin
+  - name: anc
+    comment: 'An Coppens'
+    groups:
+      - technical
+      - public
+    password: '$1$LiW9jsaL$IQMjnVeL8HBk44V.k.Lv0/'
+    shell: /sbin/nologin
+  - name: elenaa
+    comment: 'Elena Andreev'
+    groups:
+      - management
+      - public
+    password: '$1$XF/gaVNq$DbC1/yFokeNMMXInLsMo50'
+    shell: /sbin/nologin
+  - name: evyt
+    comment: 'Evy Tilleman'
+    groups:
+      - technical
+      - public
+    password: '$1$kPBaRrf3$gJDP4ucKp8rVl2Boz3W44/'
+    shell: /sbin/nologin
+  - name: christophev
+    comment: 'Christophe Van der Meershce'
+    groups:
+      - it
+      - public
+    password: '$1$v93zyvr/$CdHLF47/HOJZZzHE0DlrX/'
+  - name: stefaanv
+    comment: 'Stefaan Vernimmen'
+    groups:
+      - technical
+      - public
+    password: '$1$TS4nuqQZ$zrhsvsZLa7DITbdFvKF9h/'
+    shell: /sbin/nologin
+  - name: lennertm
+    comment: 'Lennert Mertens Administrator'
+    groups:
+      - wheel
+      - it
+      - public
+    password: '$1$goglP/6Q$frKobczJMDS5sCuV4Bk0b/'
+
+# Samba
+samba_netbios_name: 'files'
+# Disable anonymous login
+samba_map_to_guest: 'Never'
+
+# Passwords are equal to the users name (e.g stevenh : stevenh)
+samba_users:
+  - name: stevenh
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63663964343835326537316265353961306161313432616537623130623533636566366336366363
+          3562353230383435396637313434316362393461366430630a323634666136366666326533663166
+          30653735646139666165396532386639343432303464643737333665336163386531353131356265
+          6462323135633263300a373239396561323261356665643434663536343932333938323737393861
+          3763
+  - name: stevenv
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          65396462643463326464643766633831643533383430623337333862643233346564363063623236
+          6661386662313266653633663464313139363962343637390a343937623532356263663635613062
+          64636666653438613738636136383038323234333737396665373639626166613938393264353232
+          6331653761383635620a396239386437343463346666393637306639646431663536373131353261
+          6264
+  - name: leend
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          65346635663735346234646661346436653830396337316363666166303632376435623237343637
+          3663663138393962366132663934313861393238666534660a323835303163366238643133316166
+          65303136306462656434326266343931646235353236376163636561373862363961613730353834
+          3465643739366163350a343964356633343336336163626334393762653834346163353233323465
+          6330
+  - name: svena
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66396333343339316538373035613731393930626535666565653737666637636239616530383533
+          3463363561343139383739343265323636356437303166350a613064326534636639393437653439
+          33303361316664313135633361333431323133626536666236303830313366353265643433643737
+          3664386164376664370a316337386138613763323630343233363833663266633937323336393631
+          6330
+  - name: nehirb
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38376466663235303262636437663837616435613563313835323363363131633035376136616130
+          3339346231633939383533336661636465366365613665660a393530353039386162343935656333
+          30623966653262373030373566333165346363353135643234646532316463613466383164326336
+          6139356265386631640a376636303630353065636663386635643630326663386437383065643832
+          3837
+  - name: alexanderd
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34633733353464376334643933663537663431633735666337303032373739616665343733656333
+          3930313035663235623739323362386539343130613266630a373836333434326666663633336435
+          32353335626430383337363765343337633833343437383664363437623630623833313163366565
+          3661386635633538310a303863636165666432396133316232646462303137356133666635316164
+          6564
+  - name: krisv
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          37333963313436613363346332646463383763333436313638316534343630366139373762323663
+          3130346339393336616566306337323065633835383461630a386435366638643131653331616238
+          36376430633938336139373466316637626433343533613961623131633037373735346538326233
+          3163663734646363370a656437366161653836346637353937373832623432623161323834643361
+          6636
+  - name: benoitp
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35366634636332626266613661326365663630326164373162346464356638396337666634373036
+          6136623133376164373431306366326363396532353433390a383130396338313336376164333437
+          31356431346266653165343765343565366561356138326631613339633730663366346134353736
+          3361323962646135360a623730313934376466363231353432323338366432653965633866343764
+          3433
+  - name: anc
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33303436656366343039373230663330326466626236633065356465373936623164376430616435
+          6163636336396462336330333232323038626238666462610a343737653666366436613030646632
+          35376434383166666262386230653030343663343761323931623065326166636531636530613764
+          3733633963393537350a363864353430366131313533623639643736313732643831393634353835
+          3265
+  - name: elenaa
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66313065353061383638643534393364343563386330386336313165396239643435383364663832
+          3063306639363638386231393733326439623661393033660a366631393233346666343338343334
+          39663032393932396439633636623634313563303463643035393662623361353638613933383334
+          3163613337323961660a616533303739613231343034316537396261323963653938383735323662
+          6565
+  - name: evyt
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          65353263383231636434616339636439313063656461373639303338666138323863666263323630
+          6536343735643636316362363938393534356632366662330a616637336663636639373539643265
+          61626666336265393965623963333466373833376437333630363830643237613437313733653539
+          3464373435663838310a626436396330306466646631613962396562386630653738636636393133
+          3033
+  - name: christophev
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33353762333562313036356530363361353637633032653234616535646136366565306539316634
+          6136333437343939363561613035333664633461386466390a366266633538353931656134383737
+          65363138343836306636336465356666323634353238616464336633393232643136373564313261
+          3536313631326135650a323533393033386131323036393337666335653536323564383831306130
+          6535
+  - name: stefaanv
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32343232393034383631333565306438316266383734323361656562373635633139663638626436
+          3962303261323666326361646335303365646333653632340a646333323035306533353433383361
+          35636261313330363036373838646531396365393839636565366333663638626563323162386531
+          6336313663633032360a393935616539323736613334616132623762346335383235393063396539
+          3563
+  - name: lennertm
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          65333263613639323032333166356465373662663133396537643162643133613538323435396338
+          3837393664393835366339303339656135336364646666380a666564376262356464653863323836
+          64623437303963376236663563383633383337636561303066343635373135656337303933376631
+          3835386163623463340a333531383530643438643932663134613930663065613666633066326461
+          3463
+
+samba_shares:
+  - name: public
+    comment: 'A public share'
+    group: public
+    browsable: 'yes'
+    writeable: 'yes'
+    write_list: +public
+    valid_users: +public
+    create_mode: 775
+    directory_mode: 775
+    path: /srv/shares/public
+  - name: management
+    comment: 'Management share: inaccesible for all outside employees'
+    group: management
+    browsable: 'yes'
+    writeable: 'yes'
+    write_list: +management
+    valid_users: +management
+    create_mode: 770
+    directory_mode: 770
+    path: /srv/shares/management
+  - name: technical
+    comment: 'Techincal share: visible for employees outside their unit, but not writable'
+    group: technical
+    browsable: 'yes'
+    writeable: 'yes'
+    write_list: +technical
+    valid_users: +technical, +public
+    create_mode: 775
+    directory_mode: 775
+    path: /srv/shares/technical
+  - name: sales
+    comment: 'Sales share: visible to management but not writable'
+    group: sales
+    browsable: 'yes'
+    writeable: 'yes'
+    write_list: +sales
+    valid_users: +sales, +management
+    create_mode: 770
+    directory_mode: 770
+    path: /srv/shares/sales
+  - name: it
+    comment: 'IT share: visible to management but not writable'
+    group: it
+    browsable: 'yes'
+    writeable: 'yes'
+    write_list: +it
+    valid_users: +it, +management
+    create_mode: 770
+    directory_mode: 770
+    path: /srv/shares/it
+
+# Vsftpd
+# Disable anonymous acces
+vsftpd_anonymous_enable: false
+# Allow login of registered users
+vsftpd_local_enable: true
+# Folder for samba shares
+vsftpd_local_root: /srv/shares
+

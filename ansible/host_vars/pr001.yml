@@ -1,0 +1,36 @@
+---
+dns_intname: "eth1"
+dns_nameservers:
+  - DNS1=172.16.255.254
+dns_search: avalon.lan
+
+rhbase_firewall_allow_services:
+  - dhcp
+
+dhcp_global_routers: 172.16.255.254 
+dhcp_global_domain_name: avalon.lan
+dhcp_global_subnet_mask: 255.255.0.0
+
+dhcp_global_domain_name_servers:
+  - 172.16.255.254
+
+# 24h lease-time
+dhcp_global_default_lease_time: 86400
+
+dhcp_subnets:
+  - ip: 172.16.0.0
+    netmask: 255.255.0.0
+    range_begin: 172.16.128.1
+    range_end: 172.16.191.254
+  - ip: 172.16.0.0
+    netmask: 255.255.0.0
+    range_begin: 172.16.192.1
+    range_end: 172.16.255.253
+
+dhcp_hosts:
+  # - name: client1
+  #   mac: '08:00:27:3A:50:97'
+  #   ip: 172.16.128.5
+  - name: linuxclient
+    mac: '08:00:27:f7:8d:61'
+    ip: 172.16.128.7

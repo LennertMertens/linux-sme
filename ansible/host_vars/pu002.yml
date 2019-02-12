@@ -1,0 +1,17 @@
+---
+dns_intname: "eth1"
+dns_nameservers:
+  - DNS1=192.0.2.254
+dns_search: avalon.lan
+rhbase_firewall_allow_services: 
+  - dns
+bind_zone_master_server_ip: 192.0.2.10
+bind_listen_ipv4: 
+  - 192.0.2.11
+bind_allow_query:
+  - any
+bind_zone_domains:
+  - name: avalon.lan
+    networks:
+      - '192.0.2'
+      - '172.16'

@@ -1,0 +1,113 @@
+# site.yml
+---
+- hosts: all
+  become: true
+  roles: 
+    - bertvv.rh-base
+    - lennertmertens.dns
+  pre_tasks:
+    - name: Configure default gateway on eth0
+      shell: nmcli con modify eth0 ipv4.never-default true
+    - name: Configure default gateway on eth1
+      shell: nmcli con modify System\ eth1 ipv4.never-default false
+
+- hosts: pu004
+  become: true
+  roles: 
+    - bertvv.httpd
+    - bertvv.mariadb
+    - bertvv.wordpress
+  pre_tasks: 
+    - name: Add default gateway
+      shell: nmcli con modify System\ eth1 ipv4.gateway 192.0.2.254
+    - name: Disable Peerdns on interface eth0
+      lineinfile: 
+        path: /etc/sysconfig/network-scripts/ifcfg-eth0
+        line: PEERDNS=no
+    - name: Restart network service
+      systemd:
+        name: network.service
+        state: restarted
+
+- hosts: pu001
+  become: true
+  roles: 
+    - bertvv.bind
+  pre_tasks: 
+    - name: Add default gateway
+      shell: nmcli con modify System\ eth1 ipv4.gateway 192.0.2.254
+    - name: Disable Peerdns on interface eth0
+      lineinfile: 
+        path: /etc/sysconfig/network-scripts/ifcfg-eth0
+        line: PEERDNS=no
+    - name: Restart network service
+      systemd:
+        name: network.service
+        state: restarted
+
+- hosts: pu002
+  become: true
+  roles: 
+    - bertvv.bind
+  pre_tasks: 
+    - name: Add default gateway
+      shell: nmcli con modify System\ eth1 ipv4.gateway 192.0.2.254
+    - name: Disable Peerdns on interface eth0
+      lineinfile: 
+        path: /etc/sysconfig/network-scripts/ifcfg-eth0
+        line: PEERDNS=no
+    - name: Restart network service
+      systemd:
+        name: network.service
+        state: restarted
+
+- hosts: pr011
+  become: true
+  roles: 
+    - bertvv.samba
+  pre_tasks:
+    - name: Add default gateway
+      shell: nmcli con modify System\ eth1 ipv4.gateway 172.16.255.254
+    - name: Disable Peerdns on interface eth0
+      lineinfile: 
+        path: /etc/sysconfig/network-scripts/ifcfg-eth0
+        line: PEERDNS=no
+    - name: Restart network service
+      systemd:
+        name: network.service
+        state: restarted
+- hosts: pr011
+  become: true
+  roles: 
+    - bertvv.vsftpd
+  tasks:
+    - name: ACL for management read access to the it share
+      acl:
+        path: /srv/shares/it
+        entity: management
+        etype: group
+        permissions: r-x
+        state: present
+    - name: ACL for management read access to the sales share
+      acl:
+        path: /srv/shares/sales
+        entity: management
+        etype: group
+        permissions: r-x
+        state: present
+
+- hosts: pr001
+  become: true
+  roles: 
+    - bertvv.dhcp
+  pre_tasks:
+    - name: Add default gateway
+      shell: nmcli con modify System\ eth1 ipv4.gateway 172.16.255.254
+    - name: Disable Peerdns on interface eth0
+      lineinfile: 
+        path: /etc/sysconfig/network-scripts/ifcfg-eth0
+        line: PEERDNS=no
+    - name: Restart network service
+      systemd:
+        name: network.service
+        state: restarted

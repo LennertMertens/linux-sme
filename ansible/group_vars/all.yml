@@ -1,0 +1,25 @@
+# group_vars/all.yml
+# Variables visible to all nodes
+---
+# Packages being installed by bertvv.rh-base role
+rhbase_repositories: 
+  - epel-release
+rhbase_install_packages:
+  - bash-completion
+  - vim-enhanced
+  - bind-utils
+  - git
+  - nano 
+  - tree
+  - wget
+rhbase_start_services:
+  - sshd
+rhbase_motd: true
+rhbase_users:
+  - name: lennertm
+    comment: 'Lennert Mertens'
+    groups:
+      - users
+      - wheel
+rhbase_ssh_user: lennertm
+rhbase_ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEyrZ6oLyQIeCF3VY6YLQAX1tTlK+6v6MkYkAhPoS54QSzkjO+v71347F2zPtpvAAcsB0atAP2t7l2s/OuZNXu7GRF/cNIEQ/aZBnyZ6WQFgAKpWAKueOgULOreUS3Vb4ub02u6QjkEPUuNaBqH2x+8tm0zErTwmXpne/TyIAb56lZ+iE2rDxvNIcKVu/lMCtmCyn6tQcLd9Iz7wbgBSJqPpSeiNbAAiujR7duBxE4f5yBGwFeMB1UJxgkKGz2JwOKYvtsZU4i2C0KiIvdIspSXycqK4PoVthmWD4372Lbef0louTFwd07oTMlEh7MIvVLNnjtzJ/qvA02zpkSVj4d lennert@Lennerts-MacBook-Pro.local
